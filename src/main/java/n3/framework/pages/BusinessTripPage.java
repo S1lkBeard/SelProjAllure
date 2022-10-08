@@ -3,6 +3,7 @@ package n3.framework.pages;
 import io.qameta.allure.Step;
 import org.junit.Assert;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
@@ -46,6 +47,9 @@ public class BusinessTripPage extends BasePage {
 
     @FindBy(xpath = "//button[@data-action='{\"route\":\"crm_business_trip_index\"}']")
     public WebElement SaveAndExit;
+
+    @FindBy(xpath = "//a[@class='btn add-list-item']")
+    public WebElement MoveToElem;
 
     @FindBy(xpath = "//*[contains(text(), 'Список командируемых сотрудников не может быть пустым')]")
     public WebElement ErrorMsg;
@@ -112,6 +116,9 @@ public class BusinessTripPage extends BasePage {
     @Step("Проверка наличия и корректности отображения текста ошибки")
     public BusinessTripPage checkErrorMsg() {
         wait.until(ExpectedConditions.visibilityOf(ErrorMsg));
+        if(ErrorMsg.isDisplayed() == true) {
+            driverManager.getDriver().manage().window().fullscreen();
+        }
         Assert.assertTrue("Ошибка не отобразилась", ErrorMsg.isDisplayed());
         Assert.assertTrue("Текст ошибки не совпадает", "Список командируемых сотрудников не может быть пустым".equals(ErrorMsg.getText()));
         return this;

@@ -1,11 +1,13 @@
 package tests.n3;
 
+import io.qameta.allure.junit4.DisplayName;
 import org.junit.Test;
 import tests.n3.base.BaseTests;
 
 public class Task03 extends BaseTests {
 
     @Test
+    @DisplayName("Проверка создания командировки")
     public void test() {
         pageManager.getAuthPage()
                 .fillField("Логин", "Taraskina Valeriya")
